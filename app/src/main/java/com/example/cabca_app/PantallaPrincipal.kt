@@ -12,6 +12,7 @@ import com.google.firebase.ktx.Firebase
 
 class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
 
+    //Crear las variables para enlazarlos elementos
     private var iButCamara: ImageButton? = null
     private var iButChat: ImageButton? = null
     private var iButEmergencia: ImageButton? = null
@@ -23,6 +24,7 @@ class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_principal)
 
+        //Inicializar los elementos
         iButCamara = findViewById<ImageButton>(R.id.iButCamara)
         iButChat = findViewById<ImageButton>(R.id.iButChat)
         iButEmergencia = findViewById<ImageButton>(R.id.iButEmergencia)
@@ -32,6 +34,7 @@ class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
+        //Asignar el metodo OnClick a los botones
         iButCamara!!.setOnClickListener(this)
         iButChat!!.setOnClickListener(this)
         iButEmergencia!!.setOnClickListener(this)
@@ -40,6 +43,8 @@ class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //Sobreescribir la funcion onClick para que por cada item diferente
+    //Realice cierta actividad o función
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.iButCamara ->
@@ -55,26 +60,31 @@ class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //Función para iniciar la activity del módulo de Cámaras
     private fun mainCamara(){
         val intent = Intent(this, PantallaCamara::class.java).apply {  }
         startActivity(intent)
     }
 
+    //Función para iniciar la activity del módulo de Chats
     private fun mainChat(){
         val intent = Intent(this, PantallaChat::class.java).apply {  }
         startActivity(intent)
     }
 
+    //Función para iniciar la activity del módulo de Botón de emergencias
     private fun mainEmergencia(){
         val intent = Intent(this, PantallaEmergencia::class.java).apply {  }
         startActivity(intent)
     }
 
+    //Función para iniciar la activity del módulo de Control de acceso mediante código QR
     private fun mainQR(){
         val intent = Intent(this, PantallaQR::class.java).apply {  }
         startActivity(intent)
     }
 
+    //Función para cerrar la sesión del usuario
     private  fun signOut(){
         auth.signOut()
         val intent = Intent(this, InicioSesion::class.java)

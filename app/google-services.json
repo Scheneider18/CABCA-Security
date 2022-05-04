@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "975381277833",
+    "project_id": "cabca-app",
+    "storage_bucket": "cabca-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975381277833:android:7381691116042058cc6a58",
+        "android_client_info": {
+          "package_name": "com.example.cabca_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975381277833-2red4rre324l8krnpjm42mc4aubjavnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDULYNT1h6tZ4wZqdtbuTqa3d8L5wvxEqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975381277833-2red4rre324l8krnpjm42mc4aubjavnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PantallaPrincipal">
+
+    <ImageButton
+        android:id="@+id/iButCamara"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:backgroundTint="@color/principalAzul"
+        android:contentDescription="@string/botonCamaras"
+        android:foregroundTint="@color/blanco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.391"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <ImageButton
+        android:id="@+id/iButChat"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:backgroundTint="@color/principalAzul"
+        android:contentDescription="@string/botonChat"
+        android:foregroundTint="@color/blanco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.391"
+        app:srcCompat="@android:drawable/sym_action_chat" />
+
+    <ImageButton
+        android:id="@+id/iButEmergencia"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:backgroundTint="@color/principalAzul"
+        android:contentDescription="@string/botonEmergencia"
+        android:foregroundTint="@color/blanco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.669"
+        app:srcCompat="@drawable/ic_baseline_report_24"
+        app:tint="@color/blanco" />
+
+    <ImageButton
+        android:id="@+id/iButQR"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/principalAzul"
+        android:contentDescription="@string/botonQR"
+        android:foregroundTint="@color/blanco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.855"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.638"
+        app:srcCompat="@drawable/ic_baseline_qr_code_24"
+        app:tint="@color/blanco" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="141.4dp"
+        android:layout_height="80.8dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="@string/logoMain"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024"
+        app:srcCompat="@drawable/logolarge2" />
+
+    <Button
+        android:id="@+id/btnSignOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/amarrilloDefault"
+        android:text="@string/signOut"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+</androidx.constraintlayout.widget.ConstraintLayout>

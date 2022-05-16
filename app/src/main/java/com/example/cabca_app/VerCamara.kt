@@ -1,9 +1,11 @@
 package com.example.cabca_app
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebSettings
 import android.webkit.WebViewClient
 
 class VerCamara : AppCompatActivity() {
@@ -24,13 +26,13 @@ class VerCamara : AppCompatActivity() {
         }
 
         val settings = webViewCamara!!.settings
-        val newUA= "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0"
+        //val newUA= "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0"
         settings.javaScriptEnabled = true
-        settings.allowContentAccess = true
+        //settings.allowContentAccess = true
 
-        webViewCamara!!.settings.userAgentString = newUA
+        //webViewCamara!!.settings.userAgentString = newUA
         webViewCamara!!.setInitialScale(100)
-        webViewCamara!!.loadUrl("192.168.1.110")
+        webViewCamara!!.loadUrl("http://192.168.100.221")
     }
 
     override fun onBackPressed() {

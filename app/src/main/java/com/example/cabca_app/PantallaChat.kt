@@ -15,34 +15,30 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class PantallaChat : AppCompatActivity(), View.OnClickListener {
-
+    //Crear las variables para enlazarlos elementos
     private lateinit var auth: FirebaseAuth
     private var db = FirebaseFirestore.getInstance()
-
     private lateinit var newRecycler: RecyclerView
     private lateinit var addChat: Button
     private var imageId: Int = 0
-
+    //Función creadora de la activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_chat)
-
+        //Inicializar los elementos
         addChat = findViewById(R.id.btnAddChat)
-
-        imageId = R.drawable.logogrande
-
-        auth = Firebase.auth
-
-        addChat!!.setOnClickListener(this)
-
         newRecycler = findViewById(R.id.recycler)
         newRecycler.layoutManager = LinearLayoutManager(this)
         newRecycler.setHasFixedSize(true)
-
-
+        imageId = R.drawable.logogrande
+        //Inicializar Firebase Auth
+        auth = Firebase.auth
+        //Asignar el metodo OnClick a los botones
+        addChat!!.setOnClickListener(this)
+        //Llamado a la función para obtener datos
         getUserData()
     }
-
+    //Función para obtener los datos del usuario, chats recientes y enlistarlos en un adapter
     private fun getUserData() {
         val user = auth.currentUser
         if (user != null){
@@ -61,7 +57,6 @@ class PantallaChat : AppCompatActivity(), View.OnClickListener {
                         }
                     })
                 }
-
             userRef.collection("chats")
                 .addSnapshotListener { chats, error ->
                     if(error == null){
@@ -84,9 +79,8 @@ class PantallaChat : AppCompatActivity(), View.OnClickListener {
         }else{
             Toast.makeText(this, "Error con conexion", Toast.LENGTH_SHORT).show()
         }
-
     }
-
+    //Función que nos dirige a los mensajes con el chat seleccionado enviando datos del usuario actual
     private fun chatSelected(chat: Chat){
         val user = auth.currentUser
         val intent = Intent(this@PantallaChat, ChatIndv::class.java)
@@ -97,14 +91,14 @@ class PantallaChat : AppCompatActivity(), View.OnClickListener {
         intent.putExtra("imagen", chat.image)
         startActivity(intent)
     }
-
+    //Sobreescribir la funcion onClick para que por cada item diferente
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.btnAddChat ->
                 addChats()
         }
     }
-
+    //Función para añadir un chat
     private fun addChats(){
         val intent = Intent(this, AllChats::class.java)
         startActivity(intent)

@@ -18,34 +18,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class AgregarDispositivo : AppCompatActivity(), View.OnClickListener {
-
+    //Crear las variables para enlazarlos elementos
     lateinit var badapter: BluetoothAdapter
     private val REQUEST_CODE_ENABLE_BT: Int = 1;
-
     private lateinit var newRecycler: RecyclerView
     private lateinit var newList: ArrayList<Device>
     private var btnSearch: Button? = null
-
+    //Función creadora de la activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar_dispositivo)
-
+        //Inicializar los elementos
         badapter = BluetoothAdapter.getDefaultAdapter()
-
-        permisoBluetooth()
-
         newRecycler = findViewById(R.id.recyclerDevice)
         newRecycler.layoutManager = LinearLayoutManager(this)
         newRecycler.setHasFixedSize(true)
-
         newList = arrayListOf<Device>()
-
         btnSearch = findViewById(R.id.btnSearchDevice)
-
+        //Asignar el metodo OnClick a los botones
         btnSearch!!.setOnClickListener(this)
-
+        //Llamado a la función que solicita los permisos de uso del bluetooth al usuario
+        permisoBluetooth()
     }
-
+    //Funcion para enlistar los dispositivos disponibles para conectar mediante bluetooth
     private fun listDevice(){
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -75,7 +70,7 @@ class AgregarDispositivo : AppCompatActivity(), View.OnClickListener {
         }
 
     }
-
+    //Función para solicitar permisos al usuario para utilizar el servicio de bluetooth
     private fun permisoBluetooth(){
         if (badapter.isEnabled()){
             Toast.makeText(this, "Bluetooth esta encendido",Toast.LENGTH_SHORT).show()
@@ -92,19 +87,19 @@ class AgregarDispositivo : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-
+    //Función para verificar el estado del permiso de uso de bluetooth
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode){
             REQUEST_CODE_ENABLE_BT ->
                 if (resultCode == Activity.RESULT_OK){
                     Toast.makeText(this, "Bluetooth esta encendido",Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this, "Bluetooth esta no se puede encender",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Bluetooth no se puede encender",Toast.LENGTH_SHORT).show()
                 }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
+    //Sobreescribir la funcion onClick para que por cada item diferente
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.btnSearchDevice ->

@@ -15,32 +15,27 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class AllChats : AppCompatActivity() {
-
+    //Crear las variables para enlazarlos elementos
     private lateinit var auth: FirebaseAuth
     private val db = FirebaseFirestore.getInstance()
-
     private lateinit var newRecycler: RecyclerView
-
     private var imageId: Int = 0
-    private var image: Int = 0
     private var direc = ""
-
+    //Función creadora de la activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_chats)
-
+        //Inicializar los elementos
         imageId = R.drawable.logogrande
-
-        auth = Firebase.auth
-
         newRecycler = findViewById(R.id.recyclerContacts)
         newRecycler.layoutManager = LinearLayoutManager(this)
         newRecycler.setHasFixedSize(true)
-
-
+        //Inicializar Firebase Auth
+        auth = Firebase.auth
+        //Llamado a la función para obtener los contactos disponibles
         getContactsData()
     }
-
+    //Función para obtener la información de los contactos disponibles y enlistarlos en un adapter
     private fun getContactsData() {
         val user = auth.currentUser
         db.collection("contacts").document(user?.email.toString())
@@ -66,7 +61,7 @@ class AllChats : AppCompatActivity() {
             }
 
     }
-
+    //Función para crear un chat nuevo con la información del contacto seleccionado y almacenarlo en la base de datos
     private fun newChat(correo: String, direccion: String){
         val currentUser = auth.currentUser
         if (currentUser != null){

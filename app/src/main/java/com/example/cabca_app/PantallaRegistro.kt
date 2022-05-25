@@ -16,7 +16,7 @@ import com.google.firebase.ktx.Firebase
 import java.util.regex.Pattern
 
 class PantallaRegistro : AppCompatActivity(), View.OnClickListener {
-
+    //Variables para el uso de elementos visuales y lógicos
     private var buttonRe: Button? = null
     private var eTNom: EditText? = null
     private var eTDirec: EditText? = null
@@ -29,11 +29,11 @@ class PantallaRegistro : AppCompatActivity(), View.OnClickListener {
     private lateinit var auth: FirebaseAuth
     private val db = FirebaseFirestore.getInstance()
     private var imageId: Int = 0
-
+    //Función creadora de la activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_registro)
-
+        //Inicializar los elementos
         buttonRe = findViewById<Button>(R.id.buttonRe)
         eTNom = findViewById<EditText>(R.id.eTNom)
         eTDirec = findViewById<EditText>(R.id.eTDirec)
@@ -43,15 +43,14 @@ class PantallaRegistro : AppCompatActivity(), View.OnClickListener {
         eTCel = findViewById<EditText>(R.id.eTCel)
         eTCont = findViewById<EditText>(R.id.eTCont)
         eTContConf = findViewById<EditText>(R.id.eTContConf)
-
         imageId = R.drawable.logogrande
-
-        // Initialize Firebase Auth
+        //Inicializar Firebase Auth
         auth = Firebase.auth
-
+        //Asignar el metodo OnClick al botón
         buttonRe!!.setOnClickListener(this)
     }
-
+    //Función que se ejecuta al iniciar la activity para verificar si existe una sesión abierta, que la cuenta este
+    //verificada y así reedirigirlo a otra pantalla
     public override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
@@ -65,7 +64,8 @@ class PantallaRegistro : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
+    //Sobreescribir la funcion onClick para que por cada item diferente
+    //Realice cierta actividad o función, dentro de esta se encuentra las validaciones de los datos pertienentes para realizar el registro
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.buttonRe -> {
@@ -100,13 +100,12 @@ class PantallaRegistro : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-
+    //Función de registro con Firebase
     private fun signUp(email: String, password: String){
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     save()
-
                     val intent = Intent(this, CheckEmail::class.java)
                     startActivity(intent)
                 } else {
@@ -116,7 +115,7 @@ class PantallaRegistro : AppCompatActivity(), View.OnClickListener {
                 }
             }
     }
-
+    //Función para guardar datos generales del usuario dentro de la base de datos Firestore
     private fun save(){
         val user = auth.currentUser
         if(user != null){
@@ -131,7 +130,7 @@ class PantallaRegistro : AppCompatActivity(), View.OnClickListener {
         }
         save2()
     }
-
+    //Función para guardar datos de contacto del usuario dentro de la base de datos Firestore
     private fun save2(){
         val user = auth.currentUser
         if (user != null){

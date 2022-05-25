@@ -30,7 +30,7 @@ import java.io.ByteArrayOutputStream
 import java.util.*
 
 class PantallaQR : AppCompatActivity(), View.OnClickListener {
-
+    //Crear las variables para enlazarlos elementos
     private lateinit var imViQR: ImageView
     private var buttonRe: Button? = null
     private var buttonSha: Button? = null
@@ -38,37 +38,29 @@ class PantallaQR : AppCompatActivity(), View.OnClickListener {
     private var data: String = " "
     private var direc = ""
     private var count: Int = 0
-    private var PERMISO: Int = 100
     private lateinit var bmp: Bitmap
     private var date = Date()
-
     private lateinit var auth: FirebaseAuth
     private val db = FirebaseFirestore.getInstance()
-
-    //lateinit var per: Array<String>
-
+    //Función creadora de la activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_qr)
-
+        //Inicializar Firebase Auth
         auth = Firebase.auth
-
+        //Inicializar los elementos
         imViQR = findViewById(R.id.imViQR)
         buttonRe = findViewById(R.id.buttonReload)
         buttonSha = findViewById(R.id.buttonShare)
         btnScan = findViewById(R.id.btnScan)
-
+        //Asignar el metodo OnClick a los botones
         buttonRe!!.setOnClickListener(this)
         buttonSha!!.setOnClickListener(this)
         btnScan!!.setOnClickListener(this)
-
-
-
+        //Llamado a la función para precargar el código QR
         preLoad()
-
-
     }
-
+    //Sobreescribir la funcion onClick para que por cada item diferente
     override fun onClick(p0: View?) {
         when(p0!!.id){
             R.id.buttonReload ->
@@ -80,35 +72,20 @@ class PantallaQR : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
+    //Función para crear la activity para leer el código QR
     private fun lectorQR(){
         val intent = Intent(this, LectorQR::class.java).apply {  }
         startActivity(intent)
     }
-
-    /*private fun initScanner() {
-        val integrator = IntentIntegrator(this)
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-        integrator.setPrompt("Coloca el código en el recuadro.")
-        integrator.setTorchEnabled(true)
-        integrator.setBeepEnabled(true)
-        integrator.initiateScan()
-    }*/
-
+    //Función para mostrar información a partir de un evento
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null){
-            if(result.contents == null){
-                Toast.makeText(this,"Cancelado", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(this,"El valor es: ${result.contents}", Toast.LENGTH_SHORT).show()
-            }
-        }else{
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
 
-    fun preLoad(){
+            super.onActivityResult(requestCode, resultCode, data)
+        //}
+    }
+    //Función para crear y precargar un código QR
+    private fun preLoad(){
         val user = auth.currentUser
         db.collection("contacts").document(user?.email.toString())
             .get()
@@ -138,8 +115,8 @@ class PantallaQR : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
-    fun reLoad(data: String){
+    //Función para refrescar el código QR
+    private fun reLoad(data: String){
         count++
         var new = data + count.toString()
         if (new.isEmpty()){
@@ -163,8 +140,8 @@ class PantallaQR : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
-    fun shareCode(bmp: Bitmap){
+    //Función para compartir el código QR a través de alguna aplicación en formato de imagen
+    private fun shareCode(bmp: Bitmap){
         var b = bmp
         val share = Intent(Intent.ACTION_SEND)
         share.type = "image/jpeg"
@@ -176,5 +153,4 @@ class PantallaQR : AppCompatActivity(), View.OnClickListener {
         val chooser = Intent.createChooser(share, "Compartir con...")
         startActivity(chooser)
     }
-
 }

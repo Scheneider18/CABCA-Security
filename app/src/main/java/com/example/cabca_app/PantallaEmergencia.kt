@@ -18,22 +18,21 @@ import com.google.zxing.integration.android.IntentIntegrator.REQUEST_CODE
 import java.util.concurrent.Executor
 
 class PantallaEmergencia : AppCompatActivity() {
-
+    //Crear las variables para enlazarlos elementos
     private lateinit var newRecycler: RecyclerView
     private lateinit var newList: ArrayList<Alerta>
     private lateinit var imageId: Array<Int>
     private lateinit var typeAlert: Array<String>
     private var descrip: String = ""
     private var authen = false
-
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-
+    //Función creadora de la activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_emergencia)
-
+        //Configuración para la validación a través del uso de patron o por alguna función biométrica obtenida del celular
         val biometricManager = BiometricManager.from(this)
         when (biometricManager.canAuthenticate(BIOMETRIC_STRONG)) {
             BiometricManager.BIOMETRIC_SUCCESS ->
@@ -51,7 +50,6 @@ class PantallaEmergencia : AppCompatActivity() {
                 startActivityForResult(enrollIntent, REQUEST_CODE)
             }
         }
-
         executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
@@ -78,44 +76,32 @@ class PantallaEmergencia : AppCompatActivity() {
                         .show()
                 }
             })
-
-        /*promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Biometric login for my app")
-            .setSubtitle("Log in using your biometric credential")
-            .setNegativeButtonText("Use account password")
-            .build()*/
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Autenticación mediante biométricas.")
             .setSubtitle("Autenticate con alguna biométrica.")
-            // Can't call setNegativeButtonText() and
-            // setAllowedAuthenticators(... or DEVICE_CREDENTIAL) at the same time.
             .setNegativeButtonText("Cancelar")
             .setAllowedAuthenticators(BIOMETRIC_STRONG)
             .build()
-
+        //Inicializar los elementos
         imageId = arrayOf(
             R.drawable.ic_baseline_security_24,
             R.drawable.ic_baseline_security_24_a,
             R.drawable.ic_baseline_security_24_r
         )
-
         typeAlert = arrayOf(
             "Alerta Baja",
             "Alerta Media",
             "Alerta Alta"
         )
-
         descrip = "Contacto registrado"
-
         newRecycler = findViewById(R.id.recyclerAlert)
         newRecycler.layoutManager = LinearLayoutManager(this)
         newRecycler.setHasFixedSize(true)
-
         newList = arrayListOf()
-
+        //Llamado a la función para poder cargar los datos de las alertas
         getUserData()
     }
-
+    //Función para enlistar las alertas en un adapter
     private fun getUserData() {
         for (i in imageId.indices){
             val alert = Alerta(imageId[i],typeAlert[i],descrip)
@@ -132,38 +118,4 @@ class PantallaEmergencia : AppCompatActivity() {
 
         })
     }
-
-    //private var canAuthenticate = false
-    //private lateinit var promptInfo: androidx.biometric.BiometricPrompt.PromptInfo
-
-    /*private fun setupAuth(){
-        if (BiometricManager.from(this).canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or
-            BiometricManager.Authenticators.DEVICE_CREDENTIAL) == BiometricManager.BIOMETRIC_SUCCESS){
-
-            canAuthenticate = true
-
-            promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Autenticación biométrica")
-                .setSubtitle("Autentícate utilizando el sensor biométrico")
-                .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or
-                        BiometricManager.Authenticators.DEVICE_CREDENTIAL)
-                .build()
-        }
-    }
-
-    private fun authenticate(){
-        if (canAuthenticate){
-            androidx.biometric.BiometricPrompt(this, ContextCompat.getMainExecutor(this),
-                object : androidx.biometric.BiometricPrompt.AuthenticationCallback(){
-                    override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
-                        super.onAuthenticationSucceeded(result)
-                        authen = true
-                        Toast.makeText(this@PantallaEmergencia, "Valor: $authen", Toast.LENGTH_SHORT).show()
-                    }
-                }).authenticate(promptInfo)
-        }else{
-            authen = true
-            Toast.makeText(this@PantallaEmergencia, "Valor: $authen", Toast.LENGTH_SHORT).show()
-        }
-    }*/
 }

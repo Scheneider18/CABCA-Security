@@ -11,7 +11,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
-
     //Crear las variables para enlazarlos elementos
     private var iButCamara: ImageButton? = null
     private var iButChat: ImageButton? = null
@@ -19,30 +18,25 @@ class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
     private var iButQR: ImageButton? = null
     private var btnSignOut: Button? = null
     private lateinit var auth: FirebaseAuth
-
+    //Función creadora de la activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pantalla_principal)
-
         //Inicializar los elementos
         iButCamara = findViewById<ImageButton>(R.id.iButCamara)
         iButChat = findViewById<ImageButton>(R.id.iButChat)
         iButEmergencia = findViewById<ImageButton>(R.id.iButEmergencia)
         iButQR = findViewById<ImageButton>(R.id.iButQR)
         btnSignOut = findViewById<Button>(R.id.btnSignOut)
-
-        // Initialize Firebase Auth
+        //Inicializar Firebase Auth
         auth = Firebase.auth
-
         //Asignar el metodo OnClick a los botones
         iButCamara!!.setOnClickListener(this)
         iButChat!!.setOnClickListener(this)
         iButEmergencia!!.setOnClickListener(this)
         iButQR!!.setOnClickListener(this)
         btnSignOut!!.setOnClickListener(this)
-
     }
-
     //Sobreescribir la funcion onClick para que por cada item diferente
     //Realice cierta actividad o función
     override fun onClick(p0: View?) {
@@ -59,31 +53,26 @@ class PantallaPrincipal : AppCompatActivity(), View.OnClickListener {
                 signOut()
         }
     }
-
     //Función para iniciar la activity del módulo de Cámaras
     private fun mainCamara(){
         val intent = Intent(this, PantallaCamara::class.java).apply {  }
         startActivity(intent)
     }
-
     //Función para iniciar la activity del módulo de Chats
     private fun mainChat(){
         val intent = Intent(this, PantallaChat::class.java).apply {  }
         startActivity(intent)
     }
-
     //Función para iniciar la activity del módulo de Botón de emergencias
     private fun mainEmergencia(){
         val intent = Intent(this, PantallaEmergencia::class.java).apply {  }
         startActivity(intent)
     }
-
     //Función para iniciar la activity del módulo de Control de acceso mediante código QR
     private fun mainQR(){
         val intent = Intent(this, PantallaQR::class.java).apply {  }
         startActivity(intent)
     }
-
     //Función para cerrar la sesión del usuario
     private  fun signOut(){
         auth.signOut()
